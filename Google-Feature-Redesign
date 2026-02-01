@@ -1,0 +1,969 @@
+
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Account - Avika Mishra</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<style>
+body { font-family: 'Google Sans', sans-serif; background-color: #fff; color: #3c4043; }
+
+/* Sidebar Styling Updated to match image */
+.sidebar-item {
+transition: all 0.2s;
+border-radius: 0 25px 25px 0;
+margin-right: 8px;
+cursor: pointer;
+display: flex;
+align-items: center;
+padding: 8px 24px;
+color: #3c4043;
+font-size: 14px;
+font-weight: 400;
+}
+
+/* Circular Icon Styling */
+.icon-circle {
+width: 32px;
+height: 32px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-right: 16px;
+flex-shrink: 0;
+}
+
+/* Icon color inside circle (White for better contrast on darker backgrounds) */
+.icon-circle i { font-size: 18px; color: rgba(255,255,255,0.9); }
+
+/* Specific Darker Icon Colors based on your image */
+.bg-home { background-color: #8ab4f8; } /* Blue */
+.bg-info { background-color: #81c995; } /* Green */
+.bg-security { background-color: #7baaf7; } /* Light Blue */
+.bg-password { background-color: #9aa0a6; } /* Grey/Navy */
+.bg-thirdparty { background-color: #4db6ac; }/* Teal */
+.bg-privacy { background-color: #af5cf7; } /* Purple */
+.bg-people { background-color: #ee67a6; } /* Pink */
+.bg-payments { background-color: #fcad70; } /* Orange */
+.bg-storage { background-color: #ff8a65; } /* Deep Orange */
+.bg-gmail { background-color: #5f6368; } /* Dark Grey */
+.bg-digital { background-color: #4285f4; } /* Solid Blue */
+
+.sidebar-item:hover { background-color: #f8f9fa; }
+.sidebar-active { background-color: #f1f3f4 !important; font-weight: 500; }
+
+.search-pill { border: 1px solid #dadce0; border-radius: 8px; padding: 6px 16px; font-size: 14px; background: white; transition: background 0.2s; }
+.search-pill:hover { background-color: #f1f3f4; }
+.hidden { display: none !important; }
+
+.info-card { border: 1px solid #dadce0; border-radius: 12px; overflow: hidden; margin-top: 24px; background: white; margin-bottom: 24px; }
+.info-row { border-bottom: 1px solid #dadce0; padding: 20px 24px; display: flex; align-items: flex-start; transition: background 0.2s; }
+.info-row:last-child { border-bottom: none; }
+.section-title { font-size: 18px; padding: 16px 24px; border-bottom: 1px solid #f1f3f4; font-weight: 500; }
+.chip { display: inline-flex; align-items: center; background: #fff; border: 1px solid #dadce0; border-radius: 16px; padding: 4px 12px; margin: 4px; font-size: 14px; cursor: default; }
+.chip-remove { margin-left: 8px; cursor: pointer; color: #5f6368; font-weight: bold; }
+
+.switch { position: relative; display: inline-block; width: 40px; height: 20px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 20px; }
+.slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: #1a73e8; }
+input:checked + .slider:before { transform: translateX(20px); }
+
+.bar-loc { background-color: #4285F4; } .bar-search { background-color: #34A853; }
+.bar-yt { background-color: #EA4335; } .bar-ads { background-color: #FBBC05; }
+.legacy-sub { padding: 16px 24px; border-bottom: 1px solid #f1f3f4; }
+.legacy-sub:last-child { border-bottom: none; }
+.radio-group label { display: block; font-size: 13px; color: #3c4043; margin-bottom: 6px; cursor: pointer; }
+
+/* Colorful Google Border Styling */
+.google-profile-border {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    padding: 3px;
+    background: conic-gradient(
+        #34a853 0deg 90deg, 
+        #fbbc05 90deg 180deg, 
+        #ea4335 180deg 270deg, 
+        #4285f4 270deg 360deg
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile-initial {
+    width: 100%;
+    height: 100%;
+    background-color: #5f6368; 
+    border: 3px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 44px;
+}
+
+/* Critical Emails Styles */
+:root {
+    --font-sans: 'Google Sans', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+    --color-bg: #f6f8fc;
+    --color-surface: #ffffff;
+    --color-text-primary: #202124;
+    --color-text-secondary: #5f6368;
+    --color-blue: #1a73e8;
+    --color-blue-hover: #1765cc;
+    --color-red: #d93025;
+    --color-divider: #dadce0;
+    --shadow-1: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+    --shadow-2: 0 4px 8px 3px rgba(60,64,67,0.15), 0 1px 3px 0 rgba(60,64,67,0.3);
+}
+
+.label-subtle {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-right: 8px;
+}
+
+.email-list {
+    list-style: none;
+    padding: 16px;
+}
+
+.email-item {
+    padding: 24px;
+    margin-bottom: 12px;
+    border: 1px solid var(--color-divider);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    background: var(--color-surface);
+}
+
+.email-item:last-child {
+    margin-bottom: 0;
+}
+
+.email-item:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 8px rgba(60,64,67,0.15);
+    transform: translateY(-1px);
+}
+
+.email-item.done {
+    opacity: 0.6;
+    background-color: #f1f3f4;
+}
+
+.email-item.done .subject-text {
+    text-decoration: line-through;
+}
+
+.row-line {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.sender-name {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--color-text-primary);
+}
+
+.subject-text {
+    font-size: 16px;
+    color: var(--color-text-primary);
+}
+
+.urgency-container {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--color-red);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.urgency-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-red);
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.deadline-warning {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background-color: #fef7e0;
+    border-left: 3px solid #f9ab00;
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--color-text-primary);
+    line-height: 1.5;
+}
+
+.consequence-text {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background-color: #fce8e6;
+    border-left: 3px solid var(--color-red);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--color-text-primary);
+    line-height: 1.5;
+}
+
+.consequence-label {
+    font-weight: 600;
+    color: var(--color-red);
+    margin-right: 4px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 8px 8px 0;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+.back-btn:hover {
+    color: var(--color-blue);
+}
+
+.back-icon {
+    margin-right: 8px;
+    fill: currentColor;
+}
+
+.detail-header {
+    margin-bottom: 32px;
+}
+
+.detail-subject {
+    font-family: var(--font-sans);
+    font-size: 26px;
+    color: var(--color-text-primary);
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.detail-meta {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    margin-bottom: 10px;
+}
+
+.detail-urgent {
+    color: var(--color-red);
+    font-weight: 500;
+    font-size: 15px;
+    margin-top: 16px;
+}
+
+.actions-bar {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-divider);
+}
+
+.btn {
+    background: #fff;
+    border: 1px solid var(--color-divider);
+    border-radius: 4px;
+    padding: 10px 28px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn:hover:not(:disabled) {
+    background-color: #f1f3f4;
+    box-shadow: 0 1px 2px rgba(60,64,67,0.1);
+}
+
+.btn:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    background: #f8f9fa;
+}
+
+.btn-primary {
+    color: var(--color-blue);
+}
+
+.reply-box {
+    margin-top: 20px;
+    border: 1px solid var(--color-divider);
+    border-radius: 4px;
+    overflow: hidden;
+    display: none;
+}
+
+.reply-box.active {
+    display: block;
+    animation: fadeIn 0.2s;
+}
+
+.reply-textarea {
+    width: 100%;
+    border: none;
+    padding: 16px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    resize: vertical;
+    min-height: 80px;
+    outline: none;
+}
+
+.reply-footer {
+    background: #f8f9fa;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid var(--color-divider);
+}
+
+.btn-send {
+    background: var(--color-blue);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 24px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-send:hover {
+    background: var(--color-blue-hover);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal {
+    background: white;
+    border-radius: 8px;
+    width: 300px;
+    padding: 16px 0;
+    box-shadow: var(--shadow-2);
+    transform: scale(0.95);
+    transition: transform 0.2s;
+}
+
+.modal-overlay.open .modal {
+    transform: scale(1);
+}
+
+.modal-option {
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--color-text-primary);
+}
+
+.modal-option:hover {
+    background-color: #f1f3f4;
+}
+
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #202124;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.view-done .detail-subject {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+.view-done .detail-meta, .view-done .detail-urgent {
+    opacity: 0.5;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.inbox-header {
+    padding: 24px 32px 16px 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--color-divider);
+}
+
+.inbox-title {
+    font-family: var(--font-sans);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+}
+
+.inbox-subtitle {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+</style>
+</head>
+<body class="flex min-h-screen">
+
+<aside class="w-72 pt-4 border-r border-gray-200" id="main-sidebar">
+<div class="px-6 py-4 mb-2">
+<span class="text-[22px] text-gray-700 font-medium">Google Account</span>
+</div>
+<nav class="flex flex-col">
+<div id="nav-home" onclick="showPage('home')" class="sidebar-item sidebar-active">
+<div class="icon-circle bg-home"><i class="material-icons-outlined">home</i></div>
+<span>Home</span>
+</div>
+<div class="sidebar-item">
+<div class="icon-circle bg-info"><i class="material-icons-outlined">person</i></div>
+<span>Personal info</span>
+</div>
+<div class="sidebar-item">
+<div class="icon-circle bg-security"><i class="material-icons-outlined">security</i></div>
+<span>Security and sign-in</span>
+</div>
+<div class="sidebar-item">
+<div class="icon-circle bg-password"><i class="material-icons-outlined">password</i></div>
+<span>Google password</span>
+</div>
+<div class="sidebar-item">
+<div class="icon-circle bg-thirdparty"><i class="material-icons-outlined">hub</i></div>
+<span>Third-party connections</span>
+</div>
+<div class="sidebar-item">
+<div class="icon-circle bg-privacy"><i class="material-icons-outlined">toggle_on</i></div>
+<span>Data and privacy</span>
+</div>
+<div class="sidebar-item">
+<div class="icon-circle bg-people"><i class="material-icons-outlined">group</i></div>
+<span>People and sharing</span>
+</div>
+<div class="sidebar-item">
+<div class="icon-circle bg-payments"><i class="material-icons-outlined">payments</i></div>
+<span>Payments and subscriptions</span>
+</div>
+<div class="sidebar-item">
+<div class="icon-circle bg-storage"><i class="material-icons-outlined">storage</i></div>
+<span>Google One storage</span>
+</div>
+
+<hr class="my-4 border-gray-200 mx-6">
+
+<div id="nav-critical" onclick="showPage('critical')" class="sidebar-item">
+<div class="icon-circle bg-gmail"><i class="material-icons-outlined">email</i></div>
+<span>Critical Gmails</span>
+</div>
+<div id="nav-digital" onclick="showPage('digital')" class="sidebar-item">
+<div class="icon-circle bg-digital"><i class="material-icons-outlined">privacy_tip</i></div>
+<span>My Digital Self</span>
+</div>
+</nav>
+</aside>
+
+<div class="flex-1 flex flex-col">
+<main id="home-view" class="flex-1 flex flex-col items-center pt-20 px-4">
+<div class="relative">
+<div class="google-profile-border shadow-sm">
+    <div class="profile-initial">A</div>
+</div>
+<div class="absolute bottom-0 right-0 bg-white rounded-full p-1.5 shadow-md border border-gray-200 flex items-center justify-center">
+<i class="material-icons-outlined text-sm text-gray-700">photo_camera</i>
+</div>
+</div>
+<h2 class="mt-4 text-[28px] font-normal text-[#1f1f1f]">Avika Mishra</h2>
+<p class="text-sm text-gray-600">avikamishra366@gmail.com</p>
+
+<div class="mt-8 w-full max-w-2xl relative">
+<i class="material-icons-outlined absolute left-4 top-3.5 text-gray-500">search</i>
+<input type="text" placeholder="Search Google Account" class="w-full pl-12 pr-4 py-3.5 bg-[#f8f9fa] border border-gray-200 rounded-full focus:outline-none focus:bg-white focus:shadow-md transition-all">
+</div>
+
+<div class="mt-6 flex flex-wrap justify-center gap-2">
+<button class="search-pill">My password</button>
+<button class="search-pill">Devices</button>
+<button class="search-pill">Password Manager</button>
+<button class="search-pill">My Activity</button>
+<button class="search-pill">Email</button>
+</div>
+</main>
+
+<main id="digital-view" class="hidden flex-1 bg-white overflow-y-auto">
+<header class="flex items-center justify-between px-8 py-3 border-b border-gray-200 sticky top-0 bg-white z-10">
+<div class="flex-1 max-w-2xl relative">
+<i class="material-icons-outlined absolute left-4 top-2.5 text-gray-400 text-lg">search</i>
+<input type="text" placeholder="Search Google Account" class="w-full pl-12 pr-4 py-2 bg-gray-100 border-none rounded-lg focus:outline-none focus:bg-white focus:ring-1 focus:ring-gray-200">
+</div>
+<div class="flex items-center space-x-5 ml-4 text-gray-600">
+<i class="material-icons-outlined">help_outline</i>
+<i class="material-icons-outlined">apps</i>
+<div class="w-8 h-8 bg-amber-700 rounded-full flex items-center justify-center text-white text-xs">A</div>
+</div>
+</header>
+
+<div class="p-12 max-w-4xl mx-auto">
+<h1 class="text-3xl font-normal text-gray-800 mb-4">My Digital Self</h1>
+
+<div class="info-card">
+<div class="section-title">How Google sees me</div>
+<div class="p-6 border-b border-gray-100">
+<p class="text-sm font-medium text-gray-700 mb-3">Interests Google thinks you have</p>
+<div id="interests-container" class="flex flex-wrap">
+<span class="chip">Tech <span class="chip-remove" onclick="removeInterest(this)">×</span></span>
+<span class="chip">Travel <span class="chip-remove" onclick="removeInterest(this)">×</span></span>
+<span class="chip">Fitness <span class="chip-remove" onclick="removeInterest(this)">×</span></span>
+<span class="chip">Education <span class="chip-remove" onclick="removeInterest(this)">×</span></span>
+</div>
+</div>
+<div class="px-6 py-4">
+<p class="text-sm font-medium text-gray-700 mb-3">Ad Preferences</p>
+<div class="space-y-4">
+<div class="flex justify-between text-sm"><span>Age</span><span class="font-medium">18</span></div>
+<div class="flex justify-between text-sm"><span>Language</span><span class="font-medium">English</span></div>
+<div class="flex justify-between text-sm"><span>Location</span><span class="font-medium">Mumbai, India</span></div>
+<div class="flex justify-between items-center pt-2 border-t border-gray-100">
+<span class="text-sm font-medium">Ads personalization</span>
+<label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+</div>
+</div>
+</div>
+<div class="p-4 bg-gray-50 text-center"><button onclick="resetProfile()" class="text-sm text-blue-600 font-medium hover:underline">Reset Profile</button></div>
+</div>
+
+<div class="info-card" id="data-usage-card">
+<div class="section-title">Where my Data Is Used</div>
+<div class="p-8">
+<div class="w-full flex h-6 rounded-full overflow-hidden mb-2 shadow-inner">
+<div class="bar-loc" style="width: 30%;"></div>
+<div class="bar-search" style="width: 25%;"></div>
+<div class="bar-yt" style="width: 25%;"></div>
+<div class="bar-ads" style="width: 20%;"></div>
+</div>
+<div class="flex justify-between text-[10px] text-gray-500 mb-8 px-1">
+<span>Loc (30%)</span><span>Search (25%)</span><span>YT (25%)</span><span>Ads (20%)</span>
+</div>
+<div class="space-y-0">
+<div class="info-row px-0">
+<div class="w-1/4 flex items-center"><div class="w-3 h-3 bar-loc rounded-full mr-2"></div><span class="text-sm font-medium">Location History</span></div>
+<div class="flex-1 text-[11px] text-gray-500 pr-4"><b>Used by:</b> Google Maps, Local search, Place recommendations</div>
+<label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+</div>
+<div class="info-row px-0">
+<div class="w-1/4 flex items-center"><div class="w-3 h-3 bar-search rounded-full mr-2"></div><span class="text-sm font-medium">Search History</span></div>
+<div class="flex-1 text-[11px] text-gray-500 pr-4"><b>Used by:</b> Faster suggestions, Personalized results</div>
+<label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+</div>
+<div class="info-row px-0">
+<div class="w-1/4 flex items-center"><div class="w-3 h-3 bar-yt rounded-full mr-2"></div><span class="text-sm font-medium">YouTube History</span></div>
+<div class="flex-1 text-[11px] text-gray-500 pr-4"><b>Used by:</b> Recommendations, Watch history</div>
+<label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+</div>
+<div class="info-row px-0">
+<div class="w-1/4 flex items-center"><div class="w-3 h-3 bar-ads rounded-full mr-2"></div><span class="text-sm font-medium">Ads Data</span></div>
+<div class="flex-1 text-[11px] text-gray-500 pr-4"><b>Used by:</b> Personalized ads, Frequency control</div>
+<label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+</div>
+</div>
+</div>
+<div class="p-4 bg-gray-50 text-center"><button onclick="resetDataUsage()" class="text-sm text-blue-600 font-medium hover:underline">Reset Usage Settings</button></div>
+</div>
+
+<div class="info-card" id="legacy-card">
+<div class="section-title">Prepare My Digital Legacy</div>
+<div class="legacy-sub bg-blue-50/30">
+<p class="text-sm font-medium text-gray-800">Who gets access if account is inactive</p>
+<div class="mt-2 text-xs text-gray-600">
+<p>📞 +91 98765 43210</p>
+<p>✉️ emergency-contact@gmail.com</p>
+</div>
+</div>
+<div class="legacy-sub">
+<p class="text-sm font-medium flex items-center">🖼️ Google Photos</p>
+<div class="mt-3 radio-group">
+<label><input type="radio" name="photos" class="mr-2"> Share with trusted contact – view/download</label>
+<label><input type="radio" name="photos" class="mr-2"> Archive – preserved but not shared</label>
+<label><input type="radio" name="photos" class="mr-2"> Delete – remove everything permanently</label>
+</div>
+</div>
+<div class="legacy-sub">
+<p class="text-sm font-medium flex items-center">📁 Google Drive</p>
+<div class="mt-3 radio-group">
+<label><input type="radio" name="drive" class="mr-2"> Share with trusted contact</label>
+<label><input type="radio" name="drive" class="mr-2"> Archive</label>
+<label><input type="radio" name="drive" class="mr-2"> Delete</label>
+</div>
+</div>
+<div class="legacy-sub">
+<p class="text-sm font-medium flex items-center">✉️ Gmail</p>
+<div class="mt-3 radio-group">
+<label><input type="radio" name="gmail" class="mr-2"> Share with trusted contact</label>
+<label><input type="radio" name="gmail" class="mr-2"> Archive</label>
+<label><input type="radio" name="gmail" class="mr-2"> Delete</label>
+</div>
+</div>
+<div class="legacy-sub p-6">
+<p class="text-sm font-medium mb-3">Leave a message or instructions</p>
+<textarea id="legacy-textarea" class="w-full border border-gray-200 rounded-lg p-3 text-sm" placeholder="e.g. Send a message to my family if inactive for 2 years." rows="3"></textarea>
+</div>
+<div class="p-4 bg-gray-50 text-center"><button onclick="resetLegacyPlan()" class="text-sm text-blue-600 font-medium hover:underline">Reset Legacy Plan</button></div>
+</div>
+</div>
+</main>
+
+<main id="critical-view" class="hidden flex-1 bg-white overflow-y-auto">
+<div id="inbox-section" class="max-w-4xl mx-auto" style="background-color: #f6f8fc; min-height: 100vh;">
+    <div style="background: white; border-radius: 8px; box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15); margin: 20px; min-height: 500px;">
+        <div class="inbox-header">
+            <div class="inbox-title">Critical Emails</div>
+            <div class="inbox-subtitle">Emails that may require timely action</div>
+        </div>
+        <div id="email-list-container"></div>
+    </div>
+</div>
+
+<div id="detail-section" class="hidden max-w-4xl mx-auto" style="background-color: #f6f8fc; min-height: 100vh; padding: 20px;">
+    <div style="background: white; border-radius: 8px; box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15); padding: 32px;">
+        <button class="back-btn" onclick="showEmailInbox()">
+            <svg class="back-icon" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            Back to Inbox
+        </button>
+        
+        <div id="detail-content"></div>
+
+        <div class="actions-bar">
+            <button id="btn-reply" class="btn btn-primary" onclick="toggleReply()">Reply</button>
+            <button id="btn-remind" class="btn" onclick="openModal()">Create reminder</button>
+            <button id="btn-done" class="btn" onclick="markDone()">Mark as done</button>
+        </div>
+
+        <div id="reply-area" class="reply-box">
+            <textarea class="reply-textarea" placeholder="Type your reply here..."></textarea>
+            <div class="reply-footer">
+                <button class="btn-send" onclick="toggleReply()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+</div>
+
+<div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal">
+        <div style="padding: 0 24px 8px 24px; font-family: var(--font-sans); font-weight: 500;">Set Reminder</div>
+        <div class="modal-option" onclick="selectReminder('1 day')">1 day before</div>
+        <div class="modal-option" onclick="selectReminder('3 days')">3 days before</div>
+        <div class="modal-option" onclick="selectReminder('Custom')">Custom date</div>
+    </div>
+</div>
+
+<div id="toast" class="toast">Action performed successfully.</div>
+
+<script>
+// Email Data
+const emails = [
+    {
+        id: 1,
+        sender: "U.S. Department of State",
+        subject: "Your Visa is Expiring Soon",
+        status: "Deadline",
+        time: "10 days left",
+        done: false,
+        consequence: "Visa expiration may result in immediate deportation and legal complications."
+    },
+    {
+        id: 2,
+        sender: "City General Hospital",
+        subject: "Medical Report Available",
+        status: "Action Required",
+        time: "7 days left",
+        done: false,
+        consequence: "Results require a follow-up appointment within a week."
+    },
+    {
+        id: 3,
+        sender: "Stanford University",
+        subject: "Application Deadline Reminder",
+        status: "Deadline",
+        time: "Tomorrow",
+        done: false,
+        consequence: "Missing this deadline will result in application rejection for this academic year."
+    },
+    {
+        id: 4,
+        sender: "TechCorp HR",
+        subject: "Job Offer: Senior Designer Role",
+        status: "Action Required",
+        time: "3 days left",
+        done: false,
+        consequence: "Offer will be withdrawn if not accepted by the deadline."
+    }
+];
+
+let currentEmailId = null;
+
+function showPage(pageId) {
+    const h = document.getElementById('home-view');
+    const d = document.getElementById('digital-view');
+    const c = document.getElementById('critical-view');
+    const nH = document.getElementById('nav-home');
+    const nD = document.getElementById('nav-digital');
+    const nC = document.getElementById('nav-critical');
+
+    // Hide all views
+    h.classList.add('hidden');
+    d.classList.add('hidden');
+    c.classList.add('hidden');
+    
+    // Remove all active states
+    nH.classList.remove('sidebar-active');
+    nD.classList.remove('sidebar-active');
+    nC.classList.remove('sidebar-active');
+
+    if (pageId === 'home') {
+        h.classList.remove('hidden');
+        nH.classList.add('sidebar-active');
+    } else if (pageId === 'digital') {
+        d.classList.remove('hidden');
+        nD.classList.add('sidebar-active');
+    } else if (pageId === 'critical') {
+        c.classList.remove('hidden');
+        nC.classList.add('sidebar-active');
+        renderEmailList();
+    }
+}
+
+function renderEmailList() {
+    const container = document.getElementById('email-list-container');
+    container.innerHTML = '';
+    
+    const list = document.createElement('div');
+    list.className = 'email-list';
+
+    emails.forEach(email => {
+        const item = document.createElement('div');
+        item.className = `email-item ${email.done ? 'done' : ''}`;
+        item.onclick = () => openEmailDetail(email.id);
+        
+        item.innerHTML = `
+            <div class="row-line">
+                <span class="label-subtle">From:</span>
+                <span class="sender-name">${email.sender}</span>
+            </div>
+            <div class="row-line">
+                <span class="label-subtle">Subject:</span>
+                <span class="subject-text">${email.subject}</span>
+            </div>
+            <div class="urgency-container">
+                <div class="urgency-dot"></div>
+                ${email.status} • ${email.time}
+            </div>
+        `;
+        list.appendChild(item);
+    });
+
+    container.appendChild(list);
+}
+
+function openEmailDetail(id) {
+    currentEmailId = id;
+    const email = emails.find(e => e.id === id);
+
+    const detailSection = document.getElementById('detail-section');
+    const inboxSection = document.getElementById('inbox-section');
+    const replyArea = document.getElementById('reply-area');
+    const detailContent = document.getElementById('detail-content');
+    
+    // Reset UI state
+    replyArea.classList.remove('active');
+    detailSection.classList.remove('view-done');
+    
+    // Populate content
+    detailContent.innerHTML = `
+        <div class="detail-header">
+            <div class="row-line">
+                <span class="label-subtle">From:</span>
+                <span class="sender-name" style="font-size:18px">${email.sender}</span>
+            </div>
+            <div class="detail-subject">${email.subject}</div>
+            <div class="detail-urgent">${email.status} • ${email.time}</div>
+            <div class="deadline-warning">
+                This email contains a deadline. Missing it may have real-life consequences. The current status is ${email.status}.
+            </div>
+            <div class="consequence-text">
+                <span class="consequence-label">Consequence:</span>${email.consequence}
+            </div>
+        </div>
+    `;
+
+    const btnReply = document.getElementById('btn-reply');
+    const btnRemind = document.getElementById('btn-remind');
+    const btnDone = document.getElementById('btn-done');
+
+    // Handle Done State
+    if(email.done) {
+        detailSection.classList.add('view-done');
+        btnReply.disabled = true;
+        btnRemind.disabled = true;
+        btnDone.disabled = true;
+        btnDone.innerText = "Completed";
+    } else {
+        btnReply.disabled = false;
+        btnRemind.disabled = false;
+        btnDone.disabled = false;
+        btnDone.innerText = "Mark as done";
+    }
+
+    // Switch views
+    inboxSection.classList.add('hidden');
+    detailSection.classList.remove('hidden');
+}
+
+function showEmailInbox() {
+    const detailSection = document.getElementById('detail-section');
+    const inboxSection = document.getElementById('inbox-section');
+    
+    detailSection.classList.add('hidden');
+    inboxSection.classList.remove('hidden');
+    renderEmailList();
+}
+
+function toggleReply() {
+    const replyArea = document.getElementById('reply-area');
+    if(replyArea.classList.contains('active')) {
+        replyArea.classList.remove('active');
+    } else {
+        replyArea.classList.add('active');
+        replyArea.querySelector('textarea').focus();
+    }
+}
+
+function openModal() {
+    document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(e) {
+    const modalOverlay = document.getElementById('modal-overlay');
+    if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('open');
+    }
+}
+
+function selectReminder(option) {
+    document.getElementById('modal-overlay').classList.remove('open');
+    showToast("Reminder added to Calendar.");
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.innerText = message || "Action performed successfully.";
+    toast.classList.add('visible');
+    setTimeout(() => {
+        toast.classList.remove('visible');
+    }, 3000);
+}
+
+function markDone() {
+    const email = emails.find(e => e.id === currentEmailId);
+    if(email) {
+        email.done = true;
+        
+        const detailSection = document.getElementById('detail-section');
+        const btnReply = document.getElementById('btn-reply');
+        const btnRemind = document.getElementById('btn-remind');
+        const btnDone = document.getElementById('btn-done');
+        const replyArea = document.getElementById('reply-area');
+        
+        // Visual updates
+        detailSection.classList.add('view-done');
+        btnReply.disabled = true;
+        btnRemind.disabled = true;
+        btnDone.disabled = true;
+        btnDone.innerText = "Completed";
+        
+        // Hide reply box if open
+        replyArea.classList.remove('active');
+    }
+}
+
+function removeInterest(el) { 
+    el.parentElement.remove(); 
+    alert("Interest removed"); 
+}
+
+function resetProfile() { 
+    alert("Profile reset is done"); 
+}
+
+// NEW FUNCTIONS FOR RESET BUTTONS
+function resetDataUsage() {
+    const switches = document.querySelectorAll('#data-usage-card input[type="checkbox"]');
+    switches.forEach(sw => sw.checked = true);
+    showToast("Data usage settings reset to default.");
+}
+
+function resetLegacyPlan() {
+    const radios = document.querySelectorAll('#legacy-card input[type="radio"]');
+    radios.forEach(radio => radio.checked = false);
+    document.getElementById('legacy-textarea').value = '';
+    showToast("Digital legacy plan has been cleared.");
+}
+</script>
+</body>
+</html>
